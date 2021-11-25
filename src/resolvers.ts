@@ -101,7 +101,7 @@ export const free = async (req: Request, res: Response) => {
   const db: Db = req.app.get("db");
   const collection = db.collection("Reservas");
   const collection1 = db.collection("Usuarios");
-  if (!req.query) {
+  if (!req.body) {
     return res.status(500).send("No params");
   }
   if (!req.headers.token) {
@@ -112,7 +112,7 @@ export const free = async (req: Request, res: Response) => {
   console.log(token_reserva);
   const exist = await collection1.findOne({ token: token_key });
   if (exist != null) {
-    const { day, month, year } = req.query as {
+    const { day, month, year } = req.body as {
       day: string;
       month: string;
       year: string;
